@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Dashboard</h1>
+        <h2>Welcome, {{ email }}! Here are your recommendations:</h2>
+
+        <!-- Form to select mood or provide custom input -->
+        <form action="/recommend" method="POST" class="mt-4">
+            <div class="form-group">
+                <label for="mood">Select your mood:</label>
+                <select name="mood" id="mood" class="form-control">
+                    <option value="happy">Happy</option>
+                    <option value="sad">Sad</option>
+                    <option value="energetic">Energetic</option>
+                    <option value="calm">Calm</option>
+                    <option value="relaxed">Relaxed</option>
+                    <option value="excited">Excited</option>
+                    <option value="nostalgic">Nostalgic</option>
+                    <option value="motivated">Motivated</option>
+                    <option value="romantic">Romantic</option>
+                    <option value="reflective">Reflective</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="user_input">Or describe how you feel (optional):</label>
+                <input type="text" name="user_input" id="user_input" class="form-control" placeholder="E.g., I feel nostalgic about old school days.">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Get Recommendations</button>
+        </form>
+
+        <!-- Display recommended songs -->
+        {% if user_songs %}
+        <h3 class="mt-5">Songs for you:</h3>
+        <ul class="list-group">
+            {% for song in user_songs %}
+                <li class="list-group-item d-flex align-items-center">
+                    <img src="{{ song['album_art_url'] }}" alt="Album Art" width="50" height="50" class="mr-3"> <!-- Replace with actual image if available -->
+                    <div>
+                        <strong>{{ song['track_name'] }}</strong> by {{ song['artist'] }}
+                        <br><small>(Mood: {{ song['mood'] }})</small>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="mt-4">No recommendations yet. Please select your mood or describe how you're feeling.</p>
+        {% endif %}
+
+        <a href="/logout" class="btn btn-danger mt-3">Logout</a>
+    </div>
+</body>
+</html>
