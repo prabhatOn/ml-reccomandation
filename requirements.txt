@@ -1,9 +1,0 @@
-Flask
-pandas
-scikit-learn
-numpy
-mongoengine
-Flask-PyMongo 
-Flask-Bcrypt
-transformers
-spacy

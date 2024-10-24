@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  flask_app:
+    build: ./app
+    container_name: flask_music_app
+    environment:
+      - MONGO_URI=mongodb+srv://prabhatchaubey56:helloworld@cluster0.cbhfk.mongodb.net/musicApp?retryWrites=true&w=majority
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app
+    depends_on:
+      - mongo_db
+  mongo_db:
+    image: mongo:latest
+    container_name: mongo_container
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./mongo_data:/data/db
