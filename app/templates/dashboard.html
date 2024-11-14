@@ -37,22 +37,29 @@
             <button type="submit" class="btn btn-primary">Get Recommendations</button>
         </form>
 
-        <!-- Display recommended songs -->
+        <!-- Display recommended songs in a table -->
         {% if user_songs %}
         <h3 class="mt-5">Songs for you:</h3>
-        <ul class="list-group">
-            {% for song in user_songs %}
-                <li class="list-group-item d-flex align-items-center">
-                    <img src="{{ song['album_art_url'] }}" alt="Album Art" width="50" height="50" class="mr-3"> <!-- Replace with actual image if available -->
-                    <div>
-                        <strong>{{ song['track_name'] }}</strong> by {{ song['artist'] }}
-                        <br><small>(Mood: {{ song['mood'] }})</small>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Track Name</th>
+                    <th>Artist</th>
+                    <th>Mood</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for song in user_songs %}
+                <tr>
+                    <td>{{ song['track_name'] }}</td>
+                    <td>{{ song['artist'] }}</td>
+                    <td>{{ mood }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         {% else %}
-        <p class="mt-4">No recommendations yet. Please select your mood or describe how you're feeling.</p>
+        <p class="mt-4">{{ message }}</p>
         {% endif %}
 
         <a href="/logout" class="btn btn-danger mt-3">Logout</a>
